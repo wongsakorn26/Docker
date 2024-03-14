@@ -13,20 +13,24 @@ services:
     env_file:
       - ./server/.env
   react:
-    build: ./react
+    build: .
     container_name: myreactapp_c
     ports:
       - '3000:3000'
     volumes:
-      - ./react:/usr/src/app
-      - /usr/src/app/node_modules  
+      - ./:/app
+      - /app/node_modules
+      #- ./react:/usr/src/app
+      #- /usr/src/app/node_modules
+        #- /usr/src/app/node_modules/.cache
+        #- /usr/src/app/node_modules/.cache/.eslintcache
     stdin_open: true
-    tty: true
+    #tty: true
     depends_on:
       - server
     env_file:
       - ./react/.env
-    command: ["npm", "run", "lint", "--quiet"]
+   #command: ["npm", "run", "lint", "--quiet"]
     
   db:
     container_name: dbreact

@@ -1,14 +1,15 @@
+FROM node:16-alpine
 
-FROM node:17-alpine
+RUN mkdir /app && chown node:node /app
+WORKDIR /app
 
-WORKDIR /usr/src/app
-
-COPY package.json ./
+USER node
+COPY --chown=node:node package.json package-lock.json* ./
 
 RUN npm install
 
-COPY . .
+COPY --chown=node:node . .
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD [ "npm", "start" ]
